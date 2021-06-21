@@ -20,13 +20,13 @@ void EnableCopyAllExcept(Transfer transfer, params string[] propsToFalse)
 
 var connectionStringSrc = new SqlConnectionStringBuilder(Args[0]);
 var connectionStringDest = new SqlConnectionStringBuilder(Args[1]);
-var connectionMasterDest = new SqlConnectionStringBuilder(connectionStringDest.ConnectionString)
+var connectionStringDestMaster = new SqlConnectionStringBuilder(connectionStringDest.ConnectionString)
 {
     InitialCatalog = "master"
 };
 
 var sourceServer = new Server(new ServerConnection(new SqlConnection(connectionStringSrc.ConnectionString)));
-var destMasterConnection = new SqlConnection(connectionMasterDest.ConnectionString);
+var destMasterConnection = new SqlConnection(connectionStringDestMaster.ConnectionString);
 destMasterConnection.Open();
 var destServerConnection = new ServerConnection(destMasterConnection);
 var destServer = new Server(destServerConnection);
@@ -43,10 +43,8 @@ var sourceDb = sourceServer.Databases[connectionStringSrc.InitialCatalog];
 var transfer = new Transfer(sourceDb);
 transfer.Options.WithDependencies = true;
 transfer.Options.ContinueScriptingOnError = true;
-
 transfer.DestinationServerConnection = destServerConnection;
 transfer.DestinationDatabase = connectionStringDest.InitialCatalog;
-
 EnableCopyAllExcept(transfer,
     nameof(transfer.CopyAllLogins),
     nameof(transfer.CopyAllObjects),

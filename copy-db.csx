@@ -57,5 +57,3 @@ transfer.CopySchema = true;
 transfer.CopyData = true;
 
 transfer.TransferData();
-
-        

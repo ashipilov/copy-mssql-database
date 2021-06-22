@@ -45,6 +45,9 @@ transfer.Options.WithDependencies = true;
 transfer.Options.ContinueScriptingOnError = true;
 transfer.DestinationServerConnection = destServerConnection;
 transfer.DestinationDatabase = connectionStringDest.InitialCatalog;
+transfer.Options.DriAllConstraints = true;
+transfer.Options.EnforceScriptingOptions = true;
+
 EnableCopyAllExcept(transfer,
     nameof(transfer.CopyAllLogins),
     nameof(transfer.CopyAllObjects),

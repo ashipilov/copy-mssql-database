@@ -1,7 +1,11 @@
 # copy-mssql-database
 Very simple c# code to copy a mssql database from one server to another
 
-# How to run
+## Prerequisites
+
+Make sure that you have [dotnet-script](https://github.com/filipw/dotnet-script) installed
+
+## How to run
 
 `dotnet script copy-db.csx -- "<source_connection_string>" "<destination_connection_string>"`
 
